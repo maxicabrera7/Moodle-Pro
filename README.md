@@ -16,7 +16,7 @@ Instalar esto toma 30 segundos. Si tardas más, el problema eres tú.
    - **URL / Dirección:** Copia y pega el siguiente código exacto:
 
 ```javascript
-javascript:(function(){var s=document.createElement('script');s.src='[https://raw.githubusercontent.com/maxicabrera7/Moodle-Pro/refs/heads/main/moodle-pro.js?v='+Math.random();document.body.appendChild(s)](https://raw.githubusercontent.com/maxicabrera7/Moodle-Pro/refs/heads/main/moodle-pro.js?v='+Math.random();document.body.appendChild(s));})();
+javascript:(function(){var%20s=document.createElement('script');s.src='https://raw.githack.com/maxicabrera7/Moodle-Pro/main/moodle-pro.js?v='+Math.random();document.body.appendChild(s);})();
 ```
 
 4. **Uso:** Entra a tu cuestionario de Moodle y haz clic en el marcador. El panel aparecerá a la derecha.
