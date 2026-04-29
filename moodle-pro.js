@@ -21,7 +21,27 @@ try{
 (function(){var n=Date.now();for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf(PX)===0){try{var j=JSON.parse(localStorage.getItem(k));if(j.ts&&(n-j.ts>EX))localStorage.removeItem(k);}catch(e){}}}})();
 
 var rq=document.querySelectorAll('.que'),tot=rq.length;
-if(tot===0)return;
+/* MODO EXPLORACIÓN / ERROR */
+if(tot===0){
+    var w=document.createElement('div');
+    w.style="position:fixed;top:20px;right:20px;z-index:2147483647;background:#1a1b26;color:#cdd6f4;padding:20px;border-radius:12px;border:1px solid #3b82f6;width:300px;font-family:-apple-system,BlinkMacSystemFont,serif;box-shadow:0 12px 40px rgba(0,0,0,0.6);animation:mq-fade 0.3s ease;";
+    
+    // Inyectar animación simple
+    var stl=document.createElement('style');
+    stl.textContent="@keyframes mq-fade{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}";
+    document.head.appendChild(stl);
+
+    w.innerHTML="<h3 style='margin:0 0 10px;color:#3b82f6;font-size:16px;display:flex;align-items:center;gap:8px'>⚠️ Moodle Pro</h3>"
+        +"<p style='font-size:13px;line-height:1.5;margin-bottom:15px;opacity:0.9;'>No se detectó ningún cuestionario activo en esta página (faltan elementos <code>.que</code>).</p>"
+        +"<div style='display:flex;flex-direction:column;gap:8px'>"
+        +"<button id='mq-w-ok' style='padding:10px;background:#3b82f6;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px'>ENTENDIDO</button>"
+        +"<a href='https://github.com/maxicabrera7/Moodle-Pro/issues' target='_blank' style='padding:10px;background:#24283b;color:#cdd6f4;text-align:center;text-decoration:none;border-radius:6px;font-size:12px;border:1px solid #414868'>REPORTAR ERROR</a>"
+        +"</div>";
+    
+    document.body.appendChild(w);
+    document.getElementById('mq-w-ok').onclick=function(){w.remove();stl.remove();};
+    return;
+}
 
 var db=function(f,m){var t;return function(){var c=this,a=arguments;clearTimeout(t);t=setTimeout(function(){f.apply(c,a);},m);};};
 var sv=JSON.parse(localStorage.getItem(SK))||{};
