@@ -41,7 +41,8 @@ try{
 /* STORAGE CLEANUP */
 (function(){var n=Date.now();for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf(PX)===0){try{var j=JSON.parse(localStorage.getItem(k));if(j.ts&&(n-j.ts>EX))localStorage.removeItem(k);}catch(e){}}}})();
 
-var rq=document.querySelectorAll('.que'),tot=rq.length;
+var rq = document.querySelectorAll('.que, .formulation, .question-container'),
+    tot = rq.length;
 /* MODO EXPLORACIÓN / ERROR */
 if(tot===0){
     var w=document.createElement('div');
