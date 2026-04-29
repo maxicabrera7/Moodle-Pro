@@ -4,8 +4,8 @@ javascript:void((function() {
     stl.textContent = "@keyframes mq-fade{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}";
     document.head.appendChild(stl);
 
-    var rq = document.querySelectorAll('.que'),
-        tot = rq.length;
+    var rq = document.querySelectorAll('.que, .formulation, .question-container'),
+    tot = rq.length;
 
     /* AVISO SI NO HAY PREGUNTAS */
     if (tot === 0) {
