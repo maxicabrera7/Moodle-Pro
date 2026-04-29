@@ -25,7 +25,7 @@ javascript:(function(){var s=document.createElement('script');s.src='[https://ra
 
 ## 📱 Instalación en Celular (Android/iOS)
 
-En móviles no puedes simplemente hacer clic en un marcador. Los navegadores móviles son basura por diseño. Sigue estos pasos:
+En móviles no puedes simplemente hacer clic en un marcador. Los navegadores móviles son inservibles por diseño. Sigue estos pasos:
 
 1. **Crea el marcador:** Crea un marcador con cualquier página, ponle el nombre `Moodle Pro` y pega el código `javascript:...` (el de arriba) en la URL.
 2. **Cómo ejecutarlo:**
@@ -37,12 +37,29 @@ En móviles no puedes simplemente hacer clic en un marcador. Los navegadores mó
 
 ---
 
-## 🛠️ Funcionalidades
+## 🛠️ Funcionalidades Detalladas
 
-* **Prompt Builder:** Genera automáticamente un texto estructurado para pegar en ChatGPT/Claude con todas las preguntas del examen.
-* **Stealth Mode:** Intenta bloquear eventos de detección de cambio de pestaña y pérdida de foco (blur/visibilitychange).
-* **Auto-Save:** Guarda tus notas e historial en el `localStorage` de tu navegador para que no pierdas nada si se cierra la pestaña.
-* **Exportar:** Baja un archivo `.md` con todo el contenido del cuestionario para estudiarlo después.
+* **Stealth & Bypass (Evasión):** El script intercepta y detiene la propagación de eventos como `blur`, `copy` y `visibilitychange`. Redefine por software las propiedades `visibilityState` y `hidden` del navegador para que el sitio web crea que la pestaña siempre está activa y visible, incluso si cambias de ventana.
+* **Scraping Inteligente:** Extrae automáticamente el texto de las preguntas, opciones de selección (Radio, Checkbox, Select) e imágenes. Incluye un motor de limpieza para **MathJax** que elimina el ruido visual del código LaTeX y lo convierte en texto legible.
+* **Prompt Builder Adaptativo:** Permite generar bloques de texto optimizados para ChatGPT, Claude o Gemini. Puedes elegir exportar todo el cuestionario, solo las pendientes, la pregunta actual o una específica por su número.
+* **Gestión de Estado (Auto-Save):** Usa el `localStorage` del navegador para persistir tu progreso. Si la página se refresca o se cierra, tus notas e historial de preguntas respondidas se recuperan automáticamente. Incluye una rutina de limpieza que borra datos antiguos (20+ días) para no saturar el almacenamiento del navegador.
+* **Interfaz de Alto Rendimiento:** La UI incluye filtrado en tiempo real con **debouncing** (evita lag al escribir) y optimización de renderizado (`content-visibility`) para manejar cuestionarios de gran tamaño sin degradar el rendimiento del navegador.
+* **Exportación a Markdown:** Genera y descarga un archivo `.md` estructurado con todas las preguntas y tus notas personales, ideal para documentación o estudio offline.
+* **Modo Oscuro Integrado:** Detecta la preferencia del sistema o permite el cambio manual de tema para no quemarte las retinas durante sesiones nocturnas.
+  
+---
+
+## ❓ Solución de Problemas (FAQ)
+
+**1. Hago clic y no pasa nada:**
+- Asegúrate de estar **dentro** de un cuestionario activo de Moodle. El script busca elementos con la clase `.que`. Si estás en el menú principal o en el área de archivos, el script no se ejecutará por seguridad.
+- Revisa que la URL del marcador empiece por `javascript:`. Algunos navegadores borran el `javascript:` al pegar por razones de "seguridad".
+
+**2. El panel aparece pero está vacío:**
+- Esto sucede si el Moodle de tu institución usa una estructura de HTML personalizada. Abre la consola (`F12`), ve a la pestaña "Elements" y verifica si las preguntas tienen la clase `.que`. Si no es así, el script no las encontrará.
+
+**3. ¿Es indetectable?**
+- **No.** Ningún script de cliente es 100% indetectable si el servidor usa proctoring avanzado (como ProctorU o Safe Exam Browser). Este script evade la monitorización básica de Moodle, pero no hace milagros. Úsalo con cerebro.
 
 ---
 
