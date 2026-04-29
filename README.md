@@ -46,7 +46,7 @@ En móviles no puedes simplemente hacer clic en un marcador. Los navegadores mó
 * **Interfaz de Alto Rendimiento:** La UI incluye filtrado en tiempo real con **debouncing** (evita lag al escribir) y optimización de renderizado (`content-visibility`) para manejar cuestionarios de gran tamaño sin degradar el rendimiento del navegador.
 * **Exportación a Markdown:** Genera y descarga un archivo `.md` estructurado con todas las preguntas y tus notas personales, ideal para documentación o estudio offline.
 * **Modo Oscuro Integrado:** Detecta la preferencia del sistema o permite el cambio manual de tema para no quemarte las retinas durante sesiones nocturnas.
-  
+* **Autodiagnóstico:** Si ejecutas el marcador fuera de un cuestionario, el script te avisará mediante un panel de notificación en lugar de fallar silenciosamente, permitiéndote acceder al soporte en GitHub rápidamente.
 ---
 
 ## ❓ Solución de Problemas (FAQ)
