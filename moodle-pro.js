@@ -1,11 +1,32 @@
-javascript:void((function(){
-var PX='mqb_', mk=function(t){return document.createElement(t)};
-var AT=document.querySelector('input[name="attempt"]');
-var ID=AT?AT.value:encodeURIComponent(document.title).substring(0,12);
-var SK=PX+ID,ST='mqb_th_pf',EX=20*24*60*60*1000;
-var HK=PX+'hist_'+encodeURIComponent(document.title).substring(0,12);
+javascript:void((function() {
+    // 1. Definir estilos básicos
+    var stl = document.createElement('style');
+    stl.textContent = "@keyframes mq-fade{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}";
+    document.head.appendChild(stl);
 
-if(document.getElementById('mq-p'))return;
+    var rq = document.querySelectorAll('.que'),
+        tot = rq.length;
+
+    /* AVISO SI NO HAY PREGUNTAS */
+    if (tot === 0) {
+        if (document.getElementById('mq-notice')) return; // Evitar duplicados
+        
+        var w = document.createElement('div');
+        w.id = 'mq-notice';
+        w.style = "position:fixed;top:20px;right:20px;z-index:2147483647;background:#1a1b26;color:#cdd6f4;padding:20px;border-radius:12px;border:1px solid #3b82f6;width:300px;font-family:-apple-system,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,0.6);animation:mq-fade 0.3s ease; text-align:left;";
+        
+        w.innerHTML = "<h3 style='margin:0 0 10px;color:#3b82f6;font-size:16px;font-weight:bold;'>⚠️ Moodle Pro</h3>" +
+            "<p style='font-size:13px;line-height:1.5;margin-bottom:15px;opacity:0.9;'>El script se cargó correctamente, pero <b>no detectó un cuestionario</b> en esta página.</p>" +
+            "<div style='display:flex;flex-direction:column;gap:8px'>" +
+            "<button id='mq-w-ok' style='padding:10px;background:#3b82f6;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px'>ENTENDIDO</button>" +
+            "<a href='https://github.com/maxicabrera7/Moodle-Pro' target='_blank' style='padding:10px;background:#24283b;color:#cdd6f4;text-align:center;text-decoration:none;border-radius:6px;font-size:12px;border:1px solid #414868'>VER REPOSITORIO</a>" +
+            "</div>";
+        
+        document.body.appendChild(w);
+        document.getElementById('mq-w-ok').onclick = function() { w.remove(); };
+        return;
+    }
+
 
 /* STEALTH & BYPASS */
 var bK=function(e){e.stopImmediatePropagation();};
