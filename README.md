@@ -1,4 +1,4 @@
-# Moodle Pro
+# Moodle Pro v1.0
 
 Herramienta de asistencia técnica para cuestionarios de Moodle. Inyecta un panel lateral con herramientas de filtrado, exportación a Markdown y generador de prompts para IA.
 
