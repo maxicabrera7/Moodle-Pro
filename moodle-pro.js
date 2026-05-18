@@ -27,6 +27,16 @@ javascript:void((function() {
         return;
     }
 
+    // Constantes de configuración para el almacenamiento local
+var PX = 'mq_';               // Prefijo para identificar las claves de Moodle Pro en localStorage
+var EX = 86400000;            // Tiempo de expiración de caché (24 horas en milisegundos)
+var SK = 'mq_state';          // Clave para persistir el estado de las respuestas de tu cuestionario
+var ST = 'mq_theme';          // Clave para persistir la preferencia de tema (claro/oscuro)
+
+// Alias utilitario para la manipulación densa del DOM que requiere el panel
+var mk = function(el) { 
+    return document.createElement(el); 
+};
 
 /* STEALTH & BYPASS */
 var bK=function(e){e.stopImmediatePropagation();};
