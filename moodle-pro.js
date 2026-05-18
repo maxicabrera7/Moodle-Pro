@@ -4,7 +4,7 @@ javascript:void((function() {
     stl.textContent = "@keyframes mq-fade{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}";
     document.head.appendChild(stl);
 
-    var rq = document.querySelectorAll('.que, .formulation, .question-container'),
+    var rq = document.querySelectorAll('.que'),
     tot = rq.length;
 
     /* AVISO SI NO HAY PREGUNTAS */
@@ -51,7 +51,7 @@ try{
 /* STORAGE CLEANUP */
 (function(){var n=Date.now();for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf(PX)===0){try{var j=JSON.parse(localStorage.getItem(k));if(j.ts&&(n-j.ts>EX))localStorage.removeItem(k);}catch(e){}}}})();
 
-var rq = document.querySelectorAll('.que, .formulation, .question-container'),
+var rq = document.querySelectorAll('.que'),
     tot = rq.length;
 /* MODO EXPLORACIÓN / ERROR */
 if(tot===0){
@@ -169,8 +169,16 @@ rq.forEach(function(q,i){
     var txt=cl?cl.innerText.trim():'---', ims=qt?Array.from(qt.querySelectorAll('img')).map(function(m){return m.src;}):[];
     var typ='Info';if(q.querySelector('select'))typ='Select';else if(q.querySelector('input[type=radio]'))typ='Radio';else if(q.querySelector('input[type=checkbox]'))typ='Check';
     typs.push(typ);
-    var f=txt, sel=Array.from(q.querySelectorAll('select')),inp=Array.from(q.querySelectorAll('input[type=checkbox],input[type=radio]'));
-    if(sel.length){
+var f=txt, sel=Array.from(q.querySelectorAll('select')),
+    inp=Array.from(q.querySelectorAll('input[type=checkbox], input[type=radio]')).filter(function(n) {
+        var parentTxt = (n.closest('label,div') || {}).innerText || '';
+        return !n.classList.contains('accesshide') && 
+               !n.classList.contains('sr-only') &&
+               n.value !== '-1' && 
+               n.value !== '' && 
+               parentTxt.toLowerCase().indexOf('quitar') === -1 && 
+               parentTxt.toLowerCase().indexOf('clear') === -1;
+    });    if(sel.length){
         var o=Array.from(new Set(sel.flatMap(function(s){return Array.from(s.options).filter(function(v){return v.value&&v.text.toLowerCase().indexOf('elegir')===-1;}).map(function(v){return v.text;});})));
         f+='\nOpciones: '+o.join(' | ');
     } else if(inp.length){
@@ -188,8 +196,29 @@ rq.forEach(function(q,i){
     ls.appendChild(c);crds.push(c);
 });
 
-var det=function(){rq.forEach(function(q,i){var v=q.querySelector('input:checked')||Array.from(q.querySelectorAll('select')).some(function(s){return s.value&&s.value!=='0';})||Array.from(q.querySelectorAll('textarea,input[type=text]')).some(function(t){return t.value.trim().length>0;});if(!!v!==st.ans[i]){st.ans[i]=!!v;crds[i].classList.toggle('done',st.ans[i]);crds[i].querySelector('.b-ok').textContent=st.ans[i]?'✅':'⬜';upT();}});};
-document.addEventListener('change',det);document.addEventListener('input',det);
+var det = function() {
+    rq.forEach(function(q, i) {
+        var form = q.querySelector('.formulation');
+        if (!form) return;
+
+        var v = form.querySelector('input[type=radio]:checked:not([value="-1"]):not([value=""]):not(.accesshide):not(.sr-only), input[type=checkbox]:checked') || 
+                Array.from(form.querySelectorAll('select')).some(function(s) { 
+                    return s.selectedIndex > 0 && s.value !== ''; 
+                }) || 
+                Array.from(form.querySelectorAll('textarea, input[type=text], input[type=number]')).some(function(t) { 
+                    return t.value.trim().length > 0; 
+                });
+        
+        if (!!v !== st.ans[i]) {
+            st.ans[i] = !!v;
+            if (crds[i]) {
+                crds[i].classList.toggle('done', st.ans[i]);
+                crds[i].querySelector('.b-ok').textContent = st.ans[i] ? '✅' : '⬜';
+            }
+            upT();
+        }
+    });
+};document.addEventListener('change',det);document.addEventListener('input',det);
 
 pnl.querySelector('#m-rst').onclick=function(){if(confirm('¿Reiniciar?')){localStorage.removeItem(SK);location.reload();}};
 pnl.querySelector('#m-all').onclick=function(e){navigator.clipboard.writeText(dta.join('\n\n'));var b=e.target;b.textContent='✅';setTimeout(function(){b.textContent='📋';},1000);};
